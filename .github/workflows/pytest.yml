@@ -1,0 +1,55 @@
+name: Parcel Delivery Unit Tests
+
+on:
+  # Part 3 & 4: Run on pushes to main/master ONLY when relevant code or test files change
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'test_*.py'
+      - 'requirements.txt'
+      - '.github/workflows/**'
+
+  # Part 4 Enhancement: Run tests when a Pull Request is opened or updated before merging to main
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'test_*.py'
+      - 'requirements.txt'
+      - '.github/workflows/**'
+
+  # Part 4 Enhancement: Allow manual triggering from the GitHub Actions tab for live interview demo
+  workflow_dispatch:
+
+# Part 4 Enhancement: Cancel older in-progress test runs if a new commit is pushed rapidly
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run-unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Execute Pytest Unit Tests
+        run: python -m pytest -v
