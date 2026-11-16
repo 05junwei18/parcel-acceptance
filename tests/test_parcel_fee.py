@@ -1,5 +1,5 @@
 import pytest
-from parcel_fee import delivery_fee
+from src.parcel_fee import delivery_fee
 
 ## Band 1( 1g - 1000g) inclusive fee = 500
 

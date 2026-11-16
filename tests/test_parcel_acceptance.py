@@ -1,5 +1,5 @@
 import pytest 
-from parcel_acceptance import is_parcel_accepted
+from src.parcel_acceptance import is_parcel_accepted
 
 ## Test cases for the is_parcel_accepted function
 def test_weight_at_lower_boundary_1g_is_accepted():
